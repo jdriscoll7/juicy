@@ -1,0 +1,2 @@
+SPARKFUN IMU Breakout Hook-Up Guide
+https://media.digikey.com/pdf/Data%20Sheets/Sparkfun%20PDFs/MPU-9250_HookupGuide_Web.pdf
