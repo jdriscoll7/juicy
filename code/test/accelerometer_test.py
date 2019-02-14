@@ -20,9 +20,9 @@ if __name__ == "__main__":
         # 3D scatter plot setup.
         fig2 = plt.figure()
         ax2 = Axes3D(fig2)
-        ax2.set_xlim(-10, 10)
-        ax2.set_ylim(-10, 10)
-        ax2.set_zlim(-10, 10)
+        ax2.set_xlim(-1, 1)
+        ax2.set_ylim(-1, 1)
+        ax2.set_zlim(-1, 1)
         plot2 = ax2.scatter3D([], [], [])
         plt.pause(1)
 
