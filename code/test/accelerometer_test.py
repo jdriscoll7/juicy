@@ -31,7 +31,7 @@ if __name__ == "__main__":
 
     while True:
 
-        sensor_data = sensor.accel
+        sensor_data = sensor.gyro
 
         print(sensor_data)
 
