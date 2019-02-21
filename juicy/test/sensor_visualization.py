@@ -1,7 +1,9 @@
+from collections import deque
+
 from matplotlib import pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
-from collections import deque
+
 
 
 def a_random_sequence():

@@ -2,8 +2,11 @@ cycler==0.10.0
 kiwisolver==1.0.1
 matplotlib==3.0.2
 numpy==1.16.1
-pkg-resources==0.0.0
 pyparsing==2.3.1
 python-dateutil==2.8.0
 six==1.12.0
 smbus2==0.2.3
+
+build-utils==0.3.2
+
+git+https://github.com/MomsFriendlyRobotCompany/mpu9250.git
