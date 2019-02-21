@@ -1,18 +1,17 @@
-from ..custom_libs.mpu9250.mpu9250 import mpu9250
-from matplotlib import pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
-import numpy as np
 from collections import deque
 
-
-# If true, then accelerometer readings will be plotted. Will not be plotted if false.
-PLOT = True
-
-# Initialize sensor with external library class.
-sensor = mpu9250()
-
+import numpy as np
+from matplotlib import pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+from mpu9250.mpu9250 import mpu9250 as imu
 
 if __name__ == "__main__":
+
+    # If true, then accelerometer readings will be plotted. Will not be plotted if false.
+    PLOT = True
+
+    # Initialize sensor with external library class.
+    sensor = imu()
 
     # Setup plotting if necessary.
     if PLOT is True:
