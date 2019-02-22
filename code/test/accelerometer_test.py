@@ -49,10 +49,10 @@ if __name__ == "__main__":
         
         next_mag = np.linalg.norm(sensor_data)        
 
-        if last_mag  < next_mag:
+        if 1.4*last_mag  < next_mag:
             GPIO.output(12, 1)
-        else:
-            GPIO.output(12, 0)
+       # else:
+       #     GPIO.output(12, 0)
 
        
         last_mag = next_mag
