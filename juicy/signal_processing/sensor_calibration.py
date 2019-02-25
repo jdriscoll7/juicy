@@ -28,7 +28,7 @@ class SensorModel:
 
         # Orientations will be based off of initial orientation - this
         # assumes that sensor will start perpendicular to Earth.
-        self.orientation = np.asarray([0, 0, 0])
+        self.orientation = np.asarray([0, 0, 0], dtype=np.float64)
 
         # Initialize timing. Differences in time used for integration.
         self.measurement_time = time.time()
