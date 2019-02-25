@@ -27,7 +27,7 @@ if __name__ == "__main__":
 
         # Get sensor data.
         sensor_accel = sensor.accel
-        sensor_gyro  = sensor.gyro
+        sensor_gyro  = np.asarray(sensor.gyro)
 
         # Get estimated "true" accelerometer measurement from model.
         sensor_model.update_state(sensor_gyro[np.abs(sensor_gyro.astype(np.int)) > 10])
