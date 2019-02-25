@@ -48,6 +48,11 @@ if __name__ == "__main__":
         print('Calibrated measurement:   (%2.3f,%2.3f,%2.3f)    |    Magnitude = %2.3f'
               % (*cal_accel, next_cal_mag))
 
+        # Print calibrated measurement.
+        print('Gyroscope measurement:    (%2.3f,%2.3f,%2.3f)'
+              % sensor_gyro)
+
+
         # Thresholding for alarm detection - uncomment else for software LED/alarm reset.
         if 1.4 * last_mag < next_mag:
             GPIO.output(12, 1)
