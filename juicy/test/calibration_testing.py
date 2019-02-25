@@ -30,7 +30,7 @@ if __name__ == "__main__":
         sensor_gyro  = np.asarray(sensor.gyro)
 
         # Threshold gyro to eliminate error.
-        sensor_gyro[sensor_gyro < 10] = 0
+        sensor_gyro[sensor_gyro < 3] = 0
 
         # Get estimated "true" accelerometer measurement from model.
         sensor_model.update_state(sensor_gyro)
