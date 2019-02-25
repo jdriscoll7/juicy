@@ -50,7 +50,7 @@ class SensorModel:
 
         # Integrate over gyroscope measurement to estimate rotational
         # displacement. Filter should go here... (UKF or particle)
-        self.orientation += (gyro * dt)
+        self.orientation += (np.asarray(gyro) * dt)
 
         # Update measurement time to get ready for next measurement.
         self.measurement_time = time.time()
