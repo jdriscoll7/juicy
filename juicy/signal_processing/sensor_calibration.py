@@ -45,15 +45,15 @@ class SensorModel:
         :return:        current orientation estimate
         """
 
-        # Store current time for integration and updating measurement_time.
-        current_time = time.time()
-
         # Calculate time difference between current and last measurement.
-        dt = current_time - self.measurement_time
+        dt = time.time() - self.measurement_time
 
         # Integrate over gyroscope measurement to estimate rotational
         # displacement. Filter should go here... (UKF or particle)
         self.orientation += (gyro * dt)
+
+        # Update measurement time to get ready for next measurement.
+        self.measurement_time = time.time()
 
     def convert_accelerometer_measurement(self, measurement, sub_gravity=False):
         """
@@ -69,9 +69,8 @@ class SensorModel:
 
         # Compute sines and cosines of each rotation angle to save repeated
         # computation in rotation matrix declaration below.
-        sin_angles = np.sin(self.orientation)
-        cos_angles = np.cos(self.orientation)
-
+        sin_angles = np.sin(self.orientation * np.pi / 180)
+        cos_angles = np.cos(self.orientation * np.pi / 180)
 
         # Define rotation inverse matrices for each axis.
         rotation_x = np.matrix([[1, 0, 0],

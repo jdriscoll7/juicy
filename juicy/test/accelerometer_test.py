@@ -1,4 +1,5 @@
-#Setup GPIO 12 as OUTPUT
+import os
+
 import RPi.GPIO as GPIO
 from mpu9250.mpu9250 import mpu9250
 from matplotlib import pyplot as plt
@@ -7,13 +8,11 @@ import numpy as np
 from collections import deque
 
 
-# If true, then accelerometer readings will be plotted. Will not be plotted if false.
-PLOT = False 
-
-
 if __name__ == "__main__":
 
-    
+    # If true, then accelerometer readings will be plotted. Will not be plotted if false.
+    PLOT = False
+
     # Initialize sensor with external library class.
     sensor = mpu9250()
     
