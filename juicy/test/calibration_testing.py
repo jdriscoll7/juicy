@@ -30,7 +30,7 @@ if __name__ == "__main__":
         sensor_gyro  = sensor.gyro
 
         # Get estimated "true" accelerometer measurement from model.
-        sensor_model.update_state(sensor_gyro[np.abs(np.cast(sensor_gyro, np.int)) > 10])
+        sensor_model.update_state(sensor_gyro[np.abs(sensor_gyro.astype(np.int)) > 10])
         cal_accel = sensor_model.convert_accelerometer_measurement(sensor_accel)
 
         # Clear console before printing new information.
