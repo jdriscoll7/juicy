@@ -91,7 +91,7 @@ class SensorModel:
 
         # Optionally return measurement with gravity compensation.
         if sub_gravity is True:
-            estimated_measurement -= (0, 0, 1)
+            estimated_measurement -= np.asmatrix((0, 0, 1))
 
         # Return the final estimated measurement based on internal state.
         return estimated_measurement
