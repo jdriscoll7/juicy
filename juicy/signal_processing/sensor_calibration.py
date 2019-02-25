@@ -90,8 +90,10 @@ class SensorModel:
         estimated_measurement = rotation_x*rotation_y*rotation_z*np.matrix(measurement).T
 
         # Optionally return measurement with gravity compensation.
-        if sub_gravity is True:
+        if sub_gravity is False:
             estimated_measurement -= np.asmatrix((0, 0, 1))
+
+        print(estimated_measurement)
 
         # Return the final estimated measurement based on internal state.
         return estimated_measurement
