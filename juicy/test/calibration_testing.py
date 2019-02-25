@@ -38,7 +38,7 @@ if __name__ == "__main__":
 
         # Print sensor data and the magnitude of the acceleration.
         next_mag     = np.linalg.norm(sensor_accel)
-        next_cal_mag = np.linalg.norm()
+        next_cal_mag = np.linalg.norm(cal_accel)
 
         # Print uncalibrated measurement.
         print('Uncalibrated measurement: (%2.3f,%2.3f,%2.3f)    |    Magnitude = %2.3f'
