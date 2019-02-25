@@ -87,7 +87,7 @@ class SensorModel:
 
         # "Unrotate" the measurement based on orientation.
         #     - https://en.wikipedia.org/wiki/Rotation_matrix
-        estimated_measurement = rotation_x*rotation_y*rotation_z*measurement.T
+        estimated_measurement = rotation_x*rotation_y*rotation_z*np.asarray(measurement).T
 
         # Optionally return measurement with gravity compensation.
         if sub_gravity is True:
