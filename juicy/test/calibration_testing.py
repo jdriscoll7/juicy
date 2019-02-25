@@ -53,8 +53,7 @@ if __name__ == "__main__":
 
         # Print calibrated measurement.
         print('Gyroscope measurement:    (%2.3f,%2.3f,%2.3f)'
-              % sensor_gyro)
-
+              % tuple(sensor_gyro))
 
         # Thresholding for alarm detection - uncomment else for software LED/alarm reset.
         if 1.4 * last_mag < next_mag:
