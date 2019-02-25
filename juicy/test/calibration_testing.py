@@ -34,7 +34,7 @@ if __name__ == "__main__":
 
         # Get estimated "true" accelerometer measurement from model.
         sensor_model.update_state(sensor_gyro)
-        cal_accel = sensor_model.convert_accelerometer_measurement(sensor_accel)
+        cal_accel = sensor_model.convert_accelerometer_measurement(sensor_accel, True)
 
         # Clear console before printing new information.
         os.system('clear')
