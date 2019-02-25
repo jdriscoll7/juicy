@@ -29,8 +29,11 @@ if __name__ == "__main__":
         sensor_accel = sensor.accel
         sensor_gyro  = np.asarray(sensor.gyro)
 
+        # Threshold gyro to eliminate error.
+        sensor_gyro[sensor_gyro < 10] = 0
+
         # Get estimated "true" accelerometer measurement from model.
-        sensor_model.update_state(sensor_gyro[np.abs(sensor_gyro.astype(np.int)) > 10])
+        sensor_model.update_state(sensor_gyro)
         cal_accel = sensor_model.convert_accelerometer_measurement(sensor_accel)
 
         # Clear console before printing new information.
