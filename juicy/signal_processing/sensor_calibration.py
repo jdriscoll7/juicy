@@ -107,7 +107,7 @@ class SensorModel:
         # displacement. Filter should go here... (UKF or particle)
         # 
         # Also correct for gyro error if possible.
-        gyro_val = np.asarray(sensor.gyro)
+        gyro_val = np.asarray(gyro)
         if self.gyro_bias_fixed is True:
             
             # Compute discrete integral.
