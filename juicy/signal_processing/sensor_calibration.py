@@ -189,5 +189,5 @@ class SensorModel:
         self.moving_average_buffer.append(new_sample)
         
         print('Moving average: (%3.2f, %3.2f, %3.2f)' % tuple(self.moving_average))
-        
+        input("aasdasdasd")
     
