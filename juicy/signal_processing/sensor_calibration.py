@@ -45,10 +45,10 @@ class SensorModel:
         self.gyro_bias_fixed = False
 
     def correct_gyro_error(self, sensor, processing_time=5, *args, **kwargs):
-         """
-         Computes the mean steady error of the sensor's gyro measurements.
-         This is used in later computation to correct for any latent error
-         in the gyroscope itself.
+        """
+        Computes the mean steady error of the sensor's gyro measurements.
+        This is used in later computation to correct for any latent error
+        in the gyroscope itself.
 
         :param sensor:           MPU9250 sensor object (gyro attribute is used)
         :param processing_time:  time to determine mean error in seconds
