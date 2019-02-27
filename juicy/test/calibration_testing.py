@@ -55,13 +55,8 @@ if __name__ == "__main__":
         print('Calibrated measurement:   (%2.3f,%2.3f,%2.3f)    |    Magnitude = %2.3f'
               % (*cal_accel, next_cal_mag))
 
-        # Print uncorrected gyro measurement.
-        print('Gyroscope measurement:              (%2.1f,%2.1f,%2.1f)'
-              % tuple(np.round(sensor_gyro, decimals=1)))
-        
-        # Print corrected gyro measurement.
-        print('Corrected Gyroscope measurement:    (%2.1f,%2.1f,%2.1f)'
-              % tuple(np.round(sensor_gyro - gyro_mean_error, decimals=1)))
+        print('\nEstimated orientation: (%2.3f,%2.3f,%2.3f)'
+             % tuple(sensor_model.orientation))
         
         # Thresholding for alarm detection - uncomment else for software LED/alarm reset.
         if 1.4 * last_mag < next_mag:
