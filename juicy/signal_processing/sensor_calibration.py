@@ -95,7 +95,7 @@ class SensorModel:
         :param kwargs:  unused
         :return:        current orientation estimate
         """
-
+        input('')
         # Calculate time difference between current and last measurement.
         dt = time.time() - self.measurement_time
 
@@ -108,6 +108,7 @@ class SensorModel:
         # 
         # Also correct for gyro error if possible.
         gyro_val = np.asarray(gyro)
+        
         if self.gyro_bias_fixed is True:
             
             # Compute discrete integral.
@@ -115,6 +116,7 @@ class SensorModel:
             
             # Offset orientation by difference and correct for RHR.
             self.orientation += (rhr_compensation * integrand)
+            
         else:
             
             # Compute discrete integral.
