@@ -43,7 +43,7 @@ class SensorModel:
         # Initialize some information about gyroscope bias correction.
         self.gyro_bias = np.asarray([0, 0, 0])
         self.gyro_bias_fixed = False
-        
+
     def correct_gyro_error(self, sensor, processing_time=5, *args, **kwargs):
          """
          Computes the mean steady error of the sensor's gyro measurements.
@@ -56,7 +56,7 @@ class SensorModel:
         :param kwargs:           unused
         :return:                 nothing
         """
-            
+
         # Get beginning time.
         beginning_time = time.time()
 
