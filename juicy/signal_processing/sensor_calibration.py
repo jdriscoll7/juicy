@@ -95,7 +95,7 @@ class SensorModel:
         # 
         # Also correct for gyro error if possible.
         if self.gyro_bias_fixed is True:
-            self.orientation -= ((np.asarray(gyro) - self.gyro_bias) * dt * np.asarray([1, 1, -1]))
+            self.orientation -= ((np.asarray(gyro) - self.gyro_bias) * dt * np.asarray([-1, 1, -1]))
         else:
             self.orientation -= (np.asarray(gyro) * dt)
             print('Gyroscope error is not being fixed - uh oh.')
