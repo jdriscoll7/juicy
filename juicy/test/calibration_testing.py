@@ -61,7 +61,7 @@ if __name__ == "__main__":
         
         # Print corrected gyro measurement.
         print('Corrected Gyroscope measurement:    (%2.3f,%2.3f,%2.3f)'
-              % tuple(gyro_mean_error))
+              % tuple(sensor_gyro - gyro_mean_error))
         
         # Thresholding for alarm detection - uncomment else for software LED/alarm reset.
         if 1.4 * last_mag < next_mag:
