@@ -26,8 +26,8 @@ if __name__ == "__main__":
     sensor_model.correct_gyro_error(sensor)
     
     # Display detected gyro mean error and wait for keypress (debugging).
-    gyro_mean_error = sensor_model.gyro_bias
-    input('Detected gyroscope bias: (%2.3f, %2.3f, %2.3f) - press enter to continue.' % tuple(gyro_mean_error))
+    gyro_mean_error = np.round(sensor_model.gyro_bias, decimals=1)
+    input('Detected gyroscope bias: (%2.1f, %2.1f, %2.1f) - press enter to continue.' % tuple(gyro_mean_error))
     
     # Main loop.
     while True:
@@ -56,11 +56,11 @@ if __name__ == "__main__":
               % (*cal_accel, next_cal_mag))
 
         # Print uncorrected gyro measurement.
-        print('Gyroscope measurement:              (%2.3f,%2.3f,%2.3f)'
+        print('Gyroscope measurement:              (%2.1f,%2.1f,%2.1f)'
               % tuple(sensor_gyro))
         
         # Print corrected gyro measurement.
-        print('Corrected Gyroscope measurement:    (%2.3f,%2.3f,%2.3f)'
+        print('Corrected Gyroscope measurement:    (%2.1f,%2.1f,%2.1f)'
               % tuple(sensor_gyro - gyro_mean_error))
         
         # Thresholding for alarm detection - uncomment else for software LED/alarm reset.
