@@ -126,14 +126,14 @@ class SensorModel:
         # Define rotation inverse matrices for each axis.
         rotation_x = np.matrix([[1, 0, 0],
                                 [0, cos_angles[0], -sin_angles[0]],
-                                [0, -sin_angles[0], cos_angles[0]]]).T
+                                [0, sin_angles[0], cos_angles[0]]]).T
 
         rotation_y = np.matrix([[cos_angles[1], 0, sin_angles[1]],
                                 [0, 1, 0],
                                 [-sin_angles[1], 0, cos_angles[1]]]).T
 
         rotation_z = np.matrix([[cos_angles[2], -sin_angles[2], 0],
-                                [-sin_angles[2], cos_angles[2], 0],
+                                [sin_angles[2], cos_angles[2], 0],
                                 [0, 0, 1]]).T
 
         # "Unrotate" the measurement based on orientation.
