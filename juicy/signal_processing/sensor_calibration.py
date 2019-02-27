@@ -84,6 +84,9 @@ class SensorModel:
         self.moving_average_buffer = [self.gyro_bias for i in range(self.moving_average_size - 1)]
         self.moving_average = self.gyro_bias
         
+        # Restart measurement timer. This function takes a long time!
+        self.measurement_time = time.time()
+        
     def update_state(self, gyro, *args, **kwargs):
         """
         Takes gyroscope measurements to update internal state
