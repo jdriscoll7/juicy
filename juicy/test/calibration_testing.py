@@ -33,7 +33,7 @@ if __name__ == "__main__":
     while True:
 
         # Get sensor data.
-        sensor_accel = sensor.accel
+        sensor_accel = np.round(sensor.accel, decimals=1)
         sensor_gyro  = np.asarray(sensor.gyro)
 
         # Get estimated "true" accelerometer measurement from model.
