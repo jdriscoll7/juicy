@@ -40,7 +40,40 @@ class SensorModel:
         # Initialize timing. Differences in time used for integration.
         self.measurement_time = time.time()
 
-    def correct_gyro_error(self,sensor)
+        # Initialize some information about gyroscope bias correction.
+        self.gyro_bias = np.asarray([0, 0, 0])
+        self.gyro_bias_fixed = False
+        
+    def correct_gyro_error(self, sensor, processing_time=5, *args, **kwargs):
+         """
+         Computes the mean steady error of the sensor's gyro measurements.
+         This is used in later computation to correct for any latent error
+         in the gyroscope itself.
+
+        :param sensor:           MPU9250 sensor object (gyro attribute is used)
+        :param processing_time:  time to determine mean error in seconds
+        :param args:             unused
+        :param kwargs:           unused
+        :return:                 nothing
+        """
+            
+        # Get beginning time.
+        beginning_time = time.time()
+        
+        # Measurements sum and number of measurements for mean computation.
+        measurement_sum = np.asarray([0, 0, 0])
+        num_measurements = 0
+        
+        # Sum up measurements until time difference reaches processing_time input.
+        while (beginning_time - time.time()) < processing_time:
+            
+            # Don't worry about arithmetic overflow - Python deals with that :).
+            measurement_sum += np.asarray(sensor.gyro)
+            num_measurements += 1
+            
+        # Set the gyroscope bias and the fact that gyro has been corrected.
+        self.gyro_bias = measurement_sum / num_measurements
+        self.gyro_bias_fixed = True
         
     def update_state(self, gyro, *args, **kwargs):
         """
@@ -59,10 +92,19 @@ class SensorModel:
 
         # Integrate over gyroscope measurement to estimate rotational
         # displacement. Filter should go here... (UKF or particle)
-        self.orientation += (np.asarray(gyro) * dt)
-
+        # 
+        # Also correct for gyro error if possible.
+        if self.gyro_bias_fixed is True:
+            self.orientation += ((np.asarray(gyro) - self.gyro_bias) * dt)
+        else:
+            self.orientation += (np.asarray(gyro) * dt)
+            print('Gyroscope error is not being fixed - uh oh.')
+        
         # Update measurement time to get ready for next measurement.
         self.measurement_time = time.time()
+        
+        # Return orientation. Not really used at the moment.
+        return self.orientation
 
     def convert_accelerometer_measurement(self, measurement, sub_gravity=False):
         """
