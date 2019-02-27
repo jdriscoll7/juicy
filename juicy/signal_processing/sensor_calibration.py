@@ -126,7 +126,7 @@ class SensorModel:
         self.measurement_time = time.time()
         
         # Update moving average.
-        update_moving_average(self.orientation)
+        self.update_moving_average(self.orientation)
         
         # Return orientation. Not really used at the moment.
         return self.orientation
