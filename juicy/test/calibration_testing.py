@@ -22,15 +22,19 @@ if __name__ == "__main__":
     # Initialize sensor model that calibrates system to some degree.
     sensor_model = SensorModel()
 
+    # Correct for gyro mean error - do it over default 5 seconds.
+    sensor_model.correct_gyro_error(sensor_model)
+    
+    # Display detected gyro mean error and wait for keypress (debugging).
+    gyro_mean_error = sensor_model.gyro_bias
+    input('Detected gyroscope bias: (%2.3f, %2.3f, %2.3f) - press enter to continue.' % tuple(gyro_mean_error))
+    
     # Main loop.
     while True:
 
         # Get sensor data.
         sensor_accel = sensor.accel
         sensor_gyro  = np.asarray(sensor.gyro)
-
-        # Threshold gyro to eliminate error.
-        sensor_gyro[sensor_gyro < 3] = 0
 
         # Get estimated "true" accelerometer measurement from model.
         sensor_model.update_state(sensor_gyro)
@@ -51,10 +55,14 @@ if __name__ == "__main__":
         print('Calibrated measurement:   (%2.3f,%2.3f,%2.3f)    |    Magnitude = %2.3f'
               % (*cal_accel, next_cal_mag))
 
-        # Print calibrated measurement.
-        print('Gyroscope measurement:    (%2.3f,%2.3f,%2.3f)'
+        # Print uncorrected gyro measurement.
+        print('Gyroscope measurement:              (%2.3f,%2.3f,%2.3f)'
               % tuple(sensor_gyro))
-
+        
+        # Print corrected gyro measurement.
+        print('Corrected Gyroscope measurement:    (%2.3f,%2.3f,%2.3f)'
+              % tuple(gyro_mean_error))
+        
         # Thresholding for alarm detection - uncomment else for software LED/alarm reset.
         if 1.4 * last_mag < next_mag:
             GPIO.output(12, 1)
