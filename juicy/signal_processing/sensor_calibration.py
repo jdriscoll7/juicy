@@ -109,7 +109,7 @@ class SensorModel:
         if self.gyro_bias_fixed is True:
             
             # Compute discrete integral.
-            integrand = (np.asarray(gyro) - self.gyro_bias) * dt
+            integrand = (np.asarray(gyro) - self.moving_average) * dt
             
             # Offset orientation by difference and correct for RHR.
             self.orientation += (rhr_compensation * integrand)
@@ -126,7 +126,7 @@ class SensorModel:
         self.measurement_time = time.time()
         
         # Update moving average.
-        self.moving_average = (self.moving_average * self.moving_average_size) 
+        update_moving_average(self.orientation)
         
         # Return orientation. Not really used at the moment.
         return self.orientation
