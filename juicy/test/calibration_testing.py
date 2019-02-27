@@ -23,7 +23,7 @@ if __name__ == "__main__":
     sensor_model = SensorModel()
 
     # Correct for gyro mean error - do it over default 5 seconds.
-    sensor_model.correct_gyro_error(sensor_model)
+    sensor_model.correct_gyro_error(sensor)
     
     # Display detected gyro mean error and wait for keypress (debugging).
     gyro_mean_error = sensor_model.gyro_bias
