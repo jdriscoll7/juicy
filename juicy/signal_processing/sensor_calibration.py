@@ -26,7 +26,7 @@ class SensorModel:
           not worth the trouble of estimating starting orientation!
     """
 
-    def __init__(self, moving_average_size=500):
+    def __init__(self):
         """
         - Initialized
             - orientation:      [0, 0, 0]
@@ -43,11 +43,6 @@ class SensorModel:
         # Initialize some information about gyroscope bias correction.
         self.gyro_bias = np.asarray([0, 0, 0])
         self.gyro_bias_fixed = False
-        
-        # Moving average is used to eliminate steady error.
-        self.moving_average = np.asarray([0, 0, 0])
-        self.moving_average_buffer = []
-        self.moving_average_size = moving_average_size
 
     def correct_gyro_error(self, sensor, processing_time=5, *args, **kwargs):
         """
@@ -79,11 +74,7 @@ class SensorModel:
         # Set the gyroscope bias and the fact that gyro has been corrected.
         self.gyro_bias = measurement_sum / num_measurements
         self.gyro_bias_fixed = True
-        
-        # Initialize moving average buffer with "moving_average_size" copies of the computed average.
-        self.moving_average_buffer = [self.gyro_bias for i in range(self.moving_average_size)]
-        self.moving_average = self.gyro_bias
-        
+  
         # Restart measurement timer. This function takes a long time!
         self.measurement_time = time.time()
         
@@ -120,7 +111,7 @@ class SensorModel:
         if self.gyro_bias_fixed is True:
             
             # Compute discrete integral.
-            integrand = (gyro_val - self.moving_average) * dt
+            integrand = (gyro_val - self.gyro_bias) * dt
             
             # Offset orientation by difference and correct for RHR.
             self.orientation += (rhr_compensation * integrand)
@@ -136,9 +127,6 @@ class SensorModel:
         
         # Update measurement time to get ready for next measurement.
         self.measurement_time = time.time()
-        
-        # Update moving average.
-        self.update_moving_average(gyro_val)
         
         # Return orientation. Not really used at the moment.
         return self.orientation
@@ -184,18 +172,3 @@ class SensorModel:
         # Return the final estimated measurement based on internal state.
         return estimated_measurement
 
-    def update_moving_average(self, new_sample):
-        """
-        Updates the moving average used by the internal gyroscope measurements.
-        
-        Expects self.moving_average_buffer to be full - this is done in initialization.
-        """
-        
-        # Compute current moving average value.
-        self.moving_average = ((self.moving_average_size * self.moving_average) 
-                               - self.moving_average_buffer[0] 
-                               + new_sample) / self.moving_average_size
-    
-        # Update moving average buffer for next update. (remove first element and add sample to end)
-        self.moving_average_buffer.pop(0)
-        self.moving_average_buffer.append(new_sample)    
