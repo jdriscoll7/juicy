@@ -59,7 +59,7 @@ class SensorModel:
             
         # Get beginning time.
         beginning_time = time.time()
-        
+
         # Measurements sum and number of measurements for mean computation.
         measurement_sum = np.asarray([0, 0, 0])
         num_measurements = 0
