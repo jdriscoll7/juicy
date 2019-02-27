@@ -26,7 +26,7 @@ class SensorModel:
           not worth the trouble of estimating starting orientation!
     """
 
-    def __init__(self, moving_average_size=1000):
+    def __init__(self, moving_average_size=500):
         """
         - Initialized
             - orientation:      [0, 0, 0]
