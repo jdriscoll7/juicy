@@ -26,7 +26,7 @@ class SensorModel:
           not worth the trouble of estimating starting orientation!
     """
 
-    def __init__(self):
+    def __init__(self, moving_average_size=1000):
         """
         - Initialized
             - orientation:      [0, 0, 0]
@@ -43,6 +43,11 @@ class SensorModel:
         # Initialize some information about gyroscope bias correction.
         self.gyro_bias = np.asarray([0, 0, 0])
         self.gyro_bias_fixed = False
+        
+        # Moving average is used to eliminate steady error.
+        self.moving_average = np.asarray([0, 0, 0])
+        self.moving_average_buffer = []
+        self.moving_average_size = moving_average_size
 
     def correct_gyro_error(self, sensor, processing_time=5, *args, **kwargs):
         """
@@ -74,6 +79,9 @@ class SensorModel:
         # Set the gyroscope bias and the fact that gyro has been corrected.
         self.gyro_bias = measurement_sum / num_measurements
         self.gyro_bias_fixed = True
+        
+        # Initialize moving average buffer with "moving_average_size" copies of the computed average.
+        self.moving_average_buffer = [self.gyro_bias] * self.moving_average_size
         
     def update_state(self, gyro, *args, **kwargs):
         """
@@ -116,6 +124,9 @@ class SensorModel:
         
         # Update measurement time to get ready for next measurement.
         self.measurement_time = time.time()
+        
+        # Update moving average.
+        self.moving_average = (self.moving_average * self.moving_average_size) 
         
         # Return orientation. Not really used at the moment.
         return self.orientation
@@ -160,3 +171,21 @@ class SensorModel:
 
         # Return the final estimated measurement based on internal state.
         return estimated_measurement
+
+    def update_moving_average(self, new_sample):
+        """
+        Updates the moving average used by the internal gyroscope measurements.
+        
+        Expects self.moving_average_buffer to be full - this is done in initialization.
+        """
+        
+        # Compute current moving average value.
+        self.moving_average = ((self.moving_average_size * self.moving_average) 
+                               - self.moving_average_buffer[0] 
+                               + new_sample) / self.moving_average_size
+    
+        # Update moving average buffer for next update. (remove first element and add sample to end)
+        self.moving_average_buffer.pop(0)
+        self.moving_average_buffer.append(new_sample)
+        
+    
