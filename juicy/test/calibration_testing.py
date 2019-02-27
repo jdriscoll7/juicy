@@ -32,9 +32,9 @@ if __name__ == "__main__":
     # Main loop.
     while True:
 
-        # Get sensor data.
+        # Get sensor data and round gyroscope measurements.
         sensor_accel = sensor.accel
-        sensor_gyro  = np.asarray(sensor.gyro)
+        sensor_gyro  = np.round(np.asarray(sensor.gyro), decimals=1)
 
         # Get estimated "true" accelerometer measurement from model.
         sensor_model.update_state(sensor_gyro)
