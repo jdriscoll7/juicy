@@ -37,7 +37,7 @@ if __name__ == "__main__":
         sensor_gyro  = np.asarray(sensor.gyro)
 
         # Get estimated "true" accelerometer measurement from model.
-        sensor_model.update_state(sensor_gyro)
+        sensor_model.update_state(np.round(sensor_gyro, decimals=1))
         cal_accel = sensor_model.convert_accelerometer_measurement(sensor_accel, True)
 
         # Clear console before printing new information.
