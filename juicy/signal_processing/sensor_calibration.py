@@ -90,14 +90,28 @@ class SensorModel:
         # Calculate time difference between current and last measurement.
         dt = time.time() - self.measurement_time
 
+        # The sensor's axes do not obey right hand rule.
+        # This is fixed by reverse-orienting x and y axes.
+        rhr_compensation = np.asarray([-1, -1, 1])
+
         # Integrate over gyroscope measurement to estimate rotational
         # displacement. Filter should go here... (UKF or particle)
         # 
         # Also correct for gyro error if possible.
         if self.gyro_bias_fixed is True:
-            self.orientation -= ((np.asarray(gyro) - self.gyro_bias) * dt * np.asarray([1, 1, -1]))
+            
+            # Compute discrete integral.
+            integrand = (np.asarray(gyro) - self.gyro_bias) * dt
+            
+            # Offset orientation by difference and correct for RHR.
+            self.orientation += (rhr_compensation * integrand)
         else:
-            self.orientation -= (np.asarray(gyro) * dt)
+            
+            # Compute discrete integral.
+            integrand = (np.asarray(gyro) * dt)
+            
+            # Offset orientation by difference and correct for RHR.
+            self.orientation -= (rhr_compensation * integrand)
             print('Gyroscope error is not being fixed - uh oh.')
         
         # Update measurement time to get ready for next measurement.
