@@ -38,7 +38,7 @@ class SensorModel:
         self.orientation = np.asarray([0, 0, 0], dtype=np.float64)
 
         # Initialize timing. Differences in time used for integration.
-        self.measurement_time = time.time()
+        self.first_measurement = True
 
         # Initialize some information about gyroscope bias correction.
         self.gyro_bias = np.asarray([0, 0, 0])
@@ -99,8 +99,13 @@ class SensorModel:
         :return:        current orientation estimate
         """
         input('')
-        # Calculate time difference between current and last measurement.
-        dt = time.time() - self.measurement_time
+        # Ignores dt for first measurement to prevent errors from latency in setup and sampling.
+        if self.first_measurement is True:
+            dt = 0
+            self.first_measurement = False
+        else:
+            # Calculate time difference between current and last measurement.
+            dt = time.time() - self.measurement_time
 
         # The sensor's axes do not obey right hand rule.
         # This is fixed by reverse-orienting x and y axes.
