@@ -98,7 +98,7 @@ class SensorModel:
         :param kwargs:  unused
         :return:        current orientation estimate
         """
-        input('')
+        
         # Ignores dt for first measurement to prevent errors from latency in setup and sampling.
         if self.first_measurement is True:
             dt = 0
