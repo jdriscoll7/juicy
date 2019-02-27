@@ -81,7 +81,7 @@ class SensorModel:
         self.gyro_bias_fixed = True
         
         # Initialize moving average buffer with "moving_average_size" copies of the computed average.
-        self.moving_average_buffer = [self.gyro_bias] * self.moving_average_size
+        self.moving_average_buffer = [self.gyro_bias for i in range(self.moving_average_size)]
         
     def update_state(self, gyro, *args, **kwargs):
         """
