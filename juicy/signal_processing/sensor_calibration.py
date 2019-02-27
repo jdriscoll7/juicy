@@ -61,7 +61,7 @@ class SensorModel:
         beginning_time = time.time()
 
         # Measurements sum and number of measurements for mean computation.
-        measurement_sum = np.asarray([0, 0, 0])
+        measurement_sum = np.asarray([0, 0, 0], dtype=np.float64)
         num_measurements = 0
         
         # Sum up measurements until time difference reaches processing_time input.
