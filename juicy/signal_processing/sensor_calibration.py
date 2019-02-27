@@ -7,12 +7,19 @@ class SensorModel:
     Basic sensor model to keep rough estimation of orientation
     under certain assumptions. May not be needed if sensor is
     assumed to never flip over...
+    
+    This model is designed specifically to work for the MPU9250 
+    package used throughout the project. See requirements.txt.
+    
+    This could be made more generic, but much simplicity would
+    need to be sacrified for generality.
 
     - Current capabilities
         - Estimate rotational orientation based on integrating over
           gyro measurements.
         - State estimation used to more robustly subtract gravity
           component from accelerometer measurements.
+        - Determine mean gyroscope error on startup.
 
     - Notes
         - Internal orientation is based on starting orientation. It's
@@ -33,6 +40,8 @@ class SensorModel:
         # Initialize timing. Differences in time used for integration.
         self.measurement_time = time.time()
 
+    def correct_gyro_error(self,sensor)
+        
     def update_state(self, gyro, *args, **kwargs):
         """
         Takes gyroscope measurements to update internal state
