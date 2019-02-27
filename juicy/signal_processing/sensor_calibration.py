@@ -67,6 +67,9 @@ class SensorModel:
         # Sum up measurements until time difference reaches processing_time input.
         while (beginning_time - time.time()) < processing_time:
             
+            # DEBUG
+            print('Time diff: %2.3f' % (beginning_time - time.time()))
+            
             # Don't worry about arithmetic overflow - Python deals with that :).
             measurement_sum += np.asarray(sensor.gyro)
             num_measurements += 1
