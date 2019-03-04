@@ -21,9 +21,14 @@ if __name__ == "__main__":
     
     # Setup GPIO modes and initial values.
     GPIO.setmode(GPIO.BCM)
-    GPIO.setup(12, GPIO.OUT)
+    GPIO.setup(16, GPIO.OUT)
+    GPIO.setup(20, GPIO.OUT)
+    GPIO.setup(21, GPIO.OUT)
     GPIO.setup(18, GPIO.IN)
-    GPIO.output(12, 0)
+    GPIO.output(16, 0)
+    GPIO.output(20, 0)
+    GPIO.output(21, 0)
+
 
     # Setup plotting if necessary.
     if PLOT is True:
@@ -41,10 +46,12 @@ if __name__ == "__main__":
         points_to_show = [deque(maxlen=10), deque(maxlen=10), deque(maxlen=10)]
 
     # Initialize first magnitude to 10 - this was it won't trigger immediately every time...
-    last_mag = 10
+    last_mag_x = 10
+    last_mag_y = 10
+    last_mag_z = 10
 
     while True:
-
+        
         # Get sensor data.
         sensor_data = sensor.accel
         
@@ -52,17 +59,23 @@ if __name__ == "__main__":
         os.system('clear')
         
         # Print sensor data and the magnitude of the acceleration.
-        next_mag = np.linalg.norm(sensor_data)
-        print('sensor x: %3.3\nsensor y: %3.3f\nsensor z: %3.3f\n\nmagnitude: %3.3f', (*sensor_data, next_mag))
-   
+        next_mag_x = np.linalg.norm(sensor_data[0])
+        next_mag_y = np.linalg.norm(sensor_data[1])
+        next_mag_z = np.linalg.norm(sensor_data[2])
+        #print('sensor x: %3.3\nsensor y: %3.3f\nsensor z: %3.3f\n\nmagnitude: %3.3f', (*sensor_data, next_mag))
+        print((sensor_data[0]),',',(sensor_data[1]),',',(sensor_data[2]))
         # Thresholding for alarm detection - uncomment else for software LED/alarm reset.
-        if 1.4*last_mag  < next_mag:
-            GPIO.output(12, 1)
-       # else:
-       #     GPIO.output(12, 0)
+        if 12*last_mag_x < next_mag_x:
+            GPIO.output(21, 1)
+        if 6.5*last_mag_y < next_mag_y:
+            GPIO.output(20, 1)
+        if 1.2*last_mag_z < next_mag_z:
+            GPIO.output(16, 1)
 
         # Set the next value to compare.
-        last_mag = next_mag
+        last_mag_x = next_mag_x
+        last_mag_y = next_mag_y
+        last_mag_z = next_mag_z
 
        # Marco's detection method - uncomment to use this.
        # if ((sensor_data[0] - arr[0]) >= .5) | ((sensor_data[1] - arr[1]) >= .8) | ((sensor_data[2] - arr[2]) >= 1):
@@ -70,7 +83,9 @@ if __name__ == "__main__":
         
         # Allows LED to be reset by external input (currently button).
         if GPIO.input(18) == 1:
-            GPIO.output(12, 0)
+            GPIO.output(16, 0)
+            GPIO.output(20, 0)
+            GPIO.output(21, 0)
         
         # Marco's detection method.
         arr[0] = sensor_data[0]
