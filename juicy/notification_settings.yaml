@@ -1,0 +1,31 @@
+# This file should not be changed, as it is a template.
+#
+# The file should be edited on the host (i.e. Raspberry Pi) and 
+# never uploaded elsewhere.
+
+
+
+# -------------
+# - API keys. -
+# -------------
+#
+# These should not be uploaded to repository, as they are private!
+#
+api_keys:
+    account_sid: PUT_ACCOUNT_SID_HERE
+    auth_token: PUT_AUTH_TOKEN_HERE
+
+
+
+# ------------------
+# - Call settings. -
+# ------------------
+#
+# Currently sets:
+#     - call message
+#     - list of recipients of call
+#
+call_settings:
+    call_message: warning.xml
+    recipients:
+        - ###########
