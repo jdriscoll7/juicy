@@ -7,7 +7,7 @@ from twilio.rest import Client
 import yaml
 
 
-class CallSender():
+class CallSender:
     
     def __init__(self, config_path):
         """
@@ -30,8 +30,13 @@ class CallSender():
         Sends calls based on settings in configuration file.
         """
         
+        # Extract voice message url to use.
+        voice_message_url = "https://raw.githubusercontent.com/jwd0023/juicy/master/juicy/alarm/call_messages/" 
+                                + self.settings['call_settings']['call_message'] 
+        
+        # Send call to each recipient listed in configuration file.
         for recipient in self.settings['call_settings']['recipients']:
-            self.client.calls.create()
             
-        
-        
+            self.client.calls.create(url=voice_messsage_url,
+                                     to=recipient,
+                                     from_="+12512908658")
