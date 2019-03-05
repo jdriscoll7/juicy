@@ -32,7 +32,7 @@ class CallSender:
         
         # Extract voice message url to use.
         voice_message_url = ("https://raw.githubusercontent.com/jwd0023/juicy/master/juicy/alarm/call_messages/" +
-                             self.settings['call_settings']['call_message'] 
+                             self.settings['call_settings']['call_message'])
         
         # Send call to each recipient listed in configuration file.
         for recipient in (self.settings['call_settings']['recipients']):
