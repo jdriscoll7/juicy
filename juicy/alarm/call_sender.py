@@ -37,7 +37,7 @@ class CallSender:
         
         # Form message - needs to be integrated with directory structure to have multiple messages.
         # This is just for testing, I guess :(
-        message = "No. Sir. Marco Zuninga. That is incorrect."
+        message = "No, sir. That is incorrect. Well, so, that's a thing. We are computer engineers!"
         voice_message_url = "https://twimlets.com/message?" + urlencode({'Message': message})
         
         # Send call to each recipient listed in configuration file.
