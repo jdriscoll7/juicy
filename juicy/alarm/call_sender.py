@@ -18,7 +18,7 @@ class CallSender:
         """
     
         # Basically sets config file as a dict that is part of the object.
-        with open(config_path + "config.yml", 'r') as config_file:
+        with open(config_path + "notification_settings.yml", 'r') as config_file:
             self.settings = yaml.load(config_file)
             
         # Setup Twilio client based on API keys in config file.
