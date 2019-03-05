@@ -31,8 +31,13 @@ class CallSender:
         """
         
         # Extract voice message url to use.
-        voice_message_url = ("https://raw.githubusercontent.com/jwd0023/juicy/master/juicy/alarm/call_messages/" +
-                             self.settings['call_settings']['call_message'])
+        #voice_message_url = ("https://raw.githubusercontent.com/jwd0023/juicy/master/juicy/alarm/call_messages/" +
+        #                     self.settings['call_settings']['call_message'])
+        
+        # Form message - needs to be integrated with directory structure to have multiple messages.
+        # This is just for testing, I guess :(
+        message = "No sir Marco Zuninga, that is incorrect."
+        voice_message_url = "https://twimlets.com/message?" + urlencode({'Message': message})
         
         # Send call to each recipient listed in configuration file.
         for recipient in (self.settings['call_settings']['recipients']):
