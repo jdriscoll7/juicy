@@ -35,8 +35,7 @@ class CallSender:
                              self.settings['call_settings']['call_message'] 
         
         # Send call to each recipient listed in configuration file.
-        for recipient in self.settings['call_settings']['recipients']:
-            
+        for recipient in (self.settings['call_settings']['recipients']):
             self.client.calls.create(url=voice_messsage_url,
                                      to=recipient,
                                      from_="+12512908658")
