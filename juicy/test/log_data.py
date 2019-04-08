@@ -14,10 +14,10 @@ REQUEST_URL        = "https://api.thingspeak.com/channels/753579/bulk_update.jso
 def bulk_update_channel(write_data):
     
     # Format the input data into JSON format.
-    data = json.dumps({'write_api_key': THINGSPEAK_API_KEY,
-                       'updates'      : write_data[0:9]})
+    data = {'write_api_key': THINGSPEAK_API_KEY,
+            'updates'      : write_data[0:9]}
     
-    data = data.encode('UTF-8')
+    data = urllib.parse.encodeurl(data).encode('UTF-8')
     
     print(data)
     
