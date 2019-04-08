@@ -1,7 +1,8 @@
 import os
 import time
 import json
-import urllib.request as urllib
+import urllib.request
+import urllib.parse
 from mpu9250.mpu9250 import mpu9250
 
 
@@ -16,8 +17,10 @@ def bulk_update_channel(write_data):
     data = json.dumps({'write_api_key': THINGSPEAK_API_KEY,
                        'updates'      : write_data})
     
+    data = urllib.parse.urlencode(data).encode("utf-8")
+    
     # Form the http request using urllib2.
-    req = urllib.Request(url = REQUEST_URL)
+    req = urllib.request.Request(url = REQUEST_URL)
     request_headers = {"User-Agent"    : "mw.doc.bulk-update (Raspberry Pi)",
                        "Content-Type"  : "application/json",
                        "Content-Length": str(len(data))}
@@ -26,11 +29,8 @@ def bulk_update_channel(write_data):
     for key, val in request_headers.items():
         req.add_header(key, val)
         
-    # Add the formed JSON data to the http request.
-    req.data = data
-    
     # Actually make the request to ThingSpeak.
-    response = urllib.urlopen(req)
+    response = urllib.request.urlopen(req, data=data)
     
 
 if __name__ == "__main__":
