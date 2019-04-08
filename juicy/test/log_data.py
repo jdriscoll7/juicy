@@ -32,6 +32,9 @@ def bulk_update_channel(write_data):
     # Actually make the request to ThingSpeak.
     response = urllib.request.urlopen(req, data=data)
     
+    # Print response.
+    print(response)
+    
 
 if __name__ == "__main__":
     
