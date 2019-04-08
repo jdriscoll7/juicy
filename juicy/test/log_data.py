@@ -14,12 +14,12 @@ def bulk_update_channel(write_data):
     
     # Format the input data into JSON format.
     data = json.dumps({'write_api_key': THINGSPEAK_API_KEY,
-                       'updates':       write_data})
+                       'updates'      : write_data})
     
     # Form the http request using urllib2.
     req = urllib2.Request(url = url)
-    request_headers = {"User-Agent":    "mw.doc.bulk-update (Raspberry Pi)",
-                       "Content-Type":   "application/json",
+    request_headers = {"User-Agent"    : "mw.doc.bulk-update (Raspberry Pi)",
+                       "Content-Type"  : "application/json",
                        "Content-Length": str(len(data))}
     
     # Set http request headers.
@@ -33,7 +33,6 @@ def bulk_update_channel(write_data):
     response = ul.urlopen(req)
     
 
-
 if __name__ == "__main__":
     
     # Initialize sensor with external library class.
@@ -42,12 +41,25 @@ if __name__ == "__main__":
     # Start timing.
     last_update_time = time.time()
     
+    # Initialize measurement buffer.
+    measurement_buffer = []
+    
     # Main loop.
     while True:
         
-        # If we have waited WAIT_TIME, then bulk update the ThingSpeak channel.
+        # Current accelerometer reading.
+        reading = sensor.accel
+        
+        # Store data to measurement buffer.
+        measurement_buffer.append({'field1' : reading[0],
+                                   'field2' : reading[1],
+                                   'field3' : reading[2],
+                                   'delta_t': time.time() - last_update_time})
+        
+        # Make url request every WAIT_TIME seconds.
         if (time.time() - last_update_time) >= WAIT_TIME:
             
-            
+            # Send bulk update, clear measurement buffer, and update timing information.
+            bulk_update_channel(measurement_buffer)
+            measurement_buffer = []
             last_update_time = time.time()
-            
