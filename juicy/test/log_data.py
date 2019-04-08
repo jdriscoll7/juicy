@@ -23,7 +23,7 @@ def bulk_update_channel(write_data):
                        "Content-Length": str(len(data))}
     
     # Set http request headers.
-    for key, val in request_headers.iteritems():
+    for key, val in request_headers.items():
         req.add_header(key, val)
         
     # Add the formed JSON data to the http request.
