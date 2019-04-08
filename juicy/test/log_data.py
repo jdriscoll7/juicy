@@ -7,15 +7,32 @@ from mpu9250.mpu9250 import mpu9250
 
 
 # Some constants used in main loop.
-THINGSPEAK_API_KEY = '797UKWN6FJXVHF6O' # API write key for ThingSpeak.
+THINGSPEAK_API_KEY = "797UKWN6FJXVHF6O" # API write key for ThingSpeak.
 WAIT_TIME          = 5                  # Update time in seconds for ThingSpeak (15s minimum)
 REQUEST_URL        = "https://api.thingspeak.com/channels/753579/bulk_update.json"
 
 def bulk_update_channel(write_data):
     
     # Format the input data into JSON format.
-    data = {'write_api_key': THINGSPEAK_API_KEY,
-            'updates'      : write_data[0:9]}
+    #data = {'write_api_key': THINGSPEAK_API_KEY,
+    #        'updates'      : write_data[0:9]}
+    
+    data = {
+	"write_api_key": THINGSPEAK_API_KEY,
+	"updates": [{
+			"delta_t": 4,
+			"field1": 1.0,
+			"field2": "2.0"
+            "field3": 1.2
+		},
+		{
+			"delta_t": 2,
+			"field1": 1.1,
+			"field2": 2.2,
+            "field3": 1.2
+		}
+	]
+}
     
     print(data)
     
