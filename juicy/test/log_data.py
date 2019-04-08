@@ -24,7 +24,7 @@ def bulk_update_channel(write_data):
     print(data)
     print('\n\n')
     
-    data = data.encode("utf-8")
+    data = urllib.parse.urlencode(data).encode("utf-8")
     
     print(data)
     
