@@ -8,7 +8,7 @@ from mpu9250.mpu9250 import mpu9250
 # Some constants used in main loop.
 THINGSPEAK_API_KEY = '797UKWN6FJXVHF6O' # API write key for ThingSpeak.
 WAIT_TIME          = 20                 # Update time in seconds for ThingSpeak (15s minimum)
-
+REQUEST_URL        = "https://api.thingspeak.com/channels/juicy_logging/bulk_update.json"
 
 def bulk_update_channel(write_data):
     
@@ -17,13 +17,13 @@ def bulk_update_channel(write_data):
                        'updates'      : write_data})
     
     # Form the http request using urllib2.
-    req = urllib.Request(url = url)
+    req = urllib.Request(url = REQUEST_URL)
     request_headers = {"User-Agent"    : "mw.doc.bulk-update (Raspberry Pi)",
                        "Content-Type"  : "application/json",
                        "Content-Length": str(len(data))}
     
     # Set http request headers.
-    for key,val in request_headers:
+    for key, val in request_headers:
         req.add_header(key, val)
         
     # Add the formed JSON data to the http request.
