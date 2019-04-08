@@ -17,9 +17,9 @@ def bulk_update_channel(write_data):
     data = {'write_api_key': THINGSPEAK_API_KEY,
             'updates'      : write_data[0:9]}
     
-    data = urllib.parse.urlencode(data).encode('utf-8')
-    
     print(data)
+    
+    data = urllib.parse.urlencode(data).encode('utf-8')
     
     # Form the http request using urllib2.
     req = urllib.request.Request(url = REQUEST_URL)
