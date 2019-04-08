@@ -27,7 +27,7 @@ def bulk_update_channel(write_data):
         req.add_header(key, val)
         
     # Add the formed JSON data to the http request.
-    req.add_data(data)
+    req.data = data
     
     # Actually make the request to ThingSpeak.
     response = urllib.urlopen(req)
