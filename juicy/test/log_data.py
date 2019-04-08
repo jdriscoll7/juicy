@@ -17,20 +17,20 @@ def bulk_update_channel(write_data):
                        'updates':       write_data})
     
     # Form the http request using urllib2.
-	req = urllib2.Request(url = url)
-	request_headers = {"User-Agent":    "mw.doc.bulk-update (Raspberry Pi)",
-                      "Content-Type":   "application/json",
-                      "Content-Length": str(len(data))}
+    req = urllib2.Request(url = url)
+    request_headers = {"User-Agent":    "mw.doc.bulk-update (Raspberry Pi)",
+                       "Content-Type":   "application/json",
+                       "Content-Length": str(len(data))}
     
     # Set http request headers.
-	for key,val in request_headers:
-		req.add_header(key, val)
+    for key,val in request_headers:
+        req.add_header(key, val)
         
     # Add the formed JSON data to the http request.
-	req.add_data(data)
+    req.add_data(data)
     
     # Actually make the request to ThingSpeak.
-	response = ul.urlopen(req)
+    response = ul.urlopen(req)
     
 
 
