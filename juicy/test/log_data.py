@@ -22,14 +22,14 @@ def bulk_update_channel(write_data):
 	"updates": [{
 			"delta_t": 4,
 			"field1": 1.0,
-			"field2": "2.0"
-            "field3": 1.2
+			"field2": "2.0",
+            		"field3": 1.2
 		},
 		{
 			"delta_t": 2,
 			"field1": 1.1,
 			"field2": 2.2,
-            "field3": 1.2
+            		"field3": 1.2
 		}
 	]
 }
