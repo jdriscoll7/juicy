@@ -1,7 +1,7 @@
 import os
 import time
 import json
-import urllib
+import urllib.request as urllib
 from mpu9250.mpu9250 import mpu9250
 
 
