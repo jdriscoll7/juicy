@@ -73,7 +73,7 @@ if __name__ == "__main__":
         # Make url request every WAIT_TIME seconds.
         if (time.time() - last_send_time) > SEND_DELAY:
             # Send bulk update, clear measurement buffer, and update timing information.
-            print("Sending measurement buffer of size " + len(measurement_buffer))
+            print("Sending measurement buffer of size " + str(len(measurement_buffer)))
             bulk_update_channel(measurement_buffer)
             measurement_buffer = []
             last_send_time = time.time()
