@@ -1,9 +1,8 @@
-import os
 import time
 import json
 import urllib.request
 import urllib.parse
-import random #from mpu9250.mpu9250 import mpu9250
+from mpu9250.mpu9250 import mpu9250
 
 # API write key.
 THINGSPEAK_API_KEY = "797UKWN6FJXVHF6O"
@@ -11,7 +10,7 @@ THINGSPEAK_API_KEY = "797UKWN6FJXVHF6O"
 # Free ThingSpeak limits to 1 API request every 15 seconds. For bulk update (i.e. multiple data points per
 # API request), only 960 data points may be included.
 SEND_DELAY    = 15
-MEASURE_DELAY = SEND_DELAY / (960)
+MEASURE_DELAY = SEND_DELAY / 960
 REQUEST_URL = "https://api.thingspeak.com/channels/753579/bulk_update.json"
 
 
@@ -55,8 +54,7 @@ if __name__ == "__main__":
         if (time.time() - last_measurement_time) >= MEASURE_DELAY:
 
             # Current accelerometer reading.
-               #reading = sensor.accel
-            reading = [random.uniform(0, 1), random.uniform(0, 1), random.uniform(0, 1)]
+            reading = sensor.accel
 
             # Store data to measurement buffer.
             measurement_buffer.append({'delta_t': 1,
