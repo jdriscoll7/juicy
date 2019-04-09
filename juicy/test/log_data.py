@@ -32,13 +32,16 @@ def bulk_update_channel(write_data):
         req.add_header(key, val)
 
     # Actually make the request to ThingSpeak.
-    urllib.request.urlopen(req, data=data)
+    try:
+        urllib.request.urlopen(req, data=data)
+    except Exception as e:
+        pass
 
 
 if __name__ == "__main__":
 
     # Initialize sensor with external library class.
-    #sensor = mpu9250()
+    sensor = mpu9250()
 
     # Keep track of measurement and API request timing.
     last_send_time          = time.time()
