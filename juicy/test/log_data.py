@@ -10,7 +10,7 @@ THINGSPEAK_API_KEY = "797UKWN6FJXVHF6O"
 # Free ThingSpeak limits to 1 API request every 15 seconds. For bulk update (i.e. multiple data points per
 # API request), only 960 data points may be included.
 SEND_DELAY    = 15
-MEASURE_DELAY = SEND_DELAY / 960
+MEASURE_DELAY = SEND_DELAY / (960/3)
 REQUEST_URL = "https://api.thingspeak.com/channels/753579/bulk_update.json"
 
 
