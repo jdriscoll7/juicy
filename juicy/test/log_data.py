@@ -61,7 +61,7 @@ if __name__ == "__main__":
             reading = sensor.accel
 
             # Store data to measurement buffer.
-            measurement_buffer.append({'created_at': datetime.datetime.now().isoformat(),
+            measurement_buffer.append({'delta_t': 1,
                                        'field1': reading[0],
                                        'field2': reading[1],
                                        'field3': reading[2]})
