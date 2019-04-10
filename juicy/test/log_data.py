@@ -64,7 +64,7 @@ if __name__ == "__main__":
             reading = sensor.accel
 
             # Store data to measurement buffer.
-            measurement_buffer.append({'created_at': fake_date.iso_format(),
+            measurement_buffer.append({'created_at': fake_date.isoformat(),
                                        'field1': reading[0],
                                        'field2': reading[1],
                                        'field3': reading[2]})
