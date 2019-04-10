@@ -52,7 +52,7 @@ if __name__ == "__main__":
     measurement_buffer = []
 
     # Keep track of date - needed to log online to ThingSpeak thing.
-    fake_date = datetime.now()
+    fake_date = datetime.datetime.now()
     
     # Main loop.
     while True:
