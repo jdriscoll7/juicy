@@ -51,6 +51,9 @@ if __name__ == "__main__":
     # Initialize measurement buffer.
     measurement_buffer = []
 
+    # Keep track of date - needed to log online to ThingSpeak thing.
+    fake_date = datetime.now()
+    
     # Main loop.
     while True:
 
@@ -61,10 +64,13 @@ if __name__ == "__main__":
             reading = sensor.accel
 
             # Store data to measurement buffer.
-            measurement_buffer.append({'delta_t': 30,
+            measurement_buffer.append({'created_at': fake_date.iso_format(),
                                        'field1': reading[0],
                                        'field2': reading[1],
                                        'field3': reading[2]})
+            
+            # Update fake date by one second
+            fake_date = fake_date + datetime.timedelta(seconds=1)
 
             # Update last measurement time to now.
             last_measurement_time = time.time()
